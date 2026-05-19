@@ -1,0 +1,20 @@
+{
+  "name": "web-clicker",
+  "version": "0.1.0",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run generate-icons && vite build",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "generate-icons": "node scripts/generate-icons.mjs"
+  },
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^2.0.0-beta.25",
+    "@types/chrome": "^0.0.270",
+    "typescript": "^5.4.5",
+    "vite": "^5.4.0",
+    "vitest": "^2.0.0"
+  }
+}
