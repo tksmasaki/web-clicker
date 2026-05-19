@@ -14,21 +14,22 @@ const FOCUSABLE_SELECTORS = [
 const HINT_STYLES = `
   .badge {
     position: fixed;
-    background: #1a1a1a;
-    color: #f0f0f0;
-    border: 1px solid #555;
+    background: #ffd700;
+    color: #111;
+    border: 1px solid #b8960c;
     border-radius: 3px;
-    font: bold 12px/1.4 'Courier New', Courier, monospace;
-    padding: 2px 4px;
+    font: bold 13px/1.4 'Courier New', Courier, monospace;
+    padding: 3px 6px;
     letter-spacing: 0.05em;
     pointer-events: none;
     white-space: nowrap;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.6);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.5), 0 0 0 1px rgba(0,0,0,0.25);
     z-index: 2147483647;
     transform: translate(-1px, -1px);
   }
   .badge .matched {
-    color: #555;
+    color: #a07c00;
+    text-decoration: line-through;
   }
 `;
 
