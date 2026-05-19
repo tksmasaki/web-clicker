@@ -18,7 +18,7 @@ const HINT_STYLES = `
     color: #111;
     border: 1px solid #b8960c;
     border-radius: 3px;
-    font: bold 13px/1.4 'Courier New', Courier, monospace;
+    font: bold 13px/1.4 system-ui, -apple-system, sans-serif;
     padding: 3px 6px;
     letter-spacing: 0.05em;
     pointer-events: none;
