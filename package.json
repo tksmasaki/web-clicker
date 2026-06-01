@@ -1,21 +1,24 @@
 {
   "name": "web-clicker",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "type": "module",
   "license": "MIT",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
-    "dev": "vite",
-    "build": "npm run generate-icons && vite build",
-    "typecheck": "tsc --noEmit",
+    "dev": "wxt",
+    "build": "npm run generate-icons && wxt build",
+    "zip": "npm run generate-icons && wxt zip",
+    "typecheck": "wxt prepare && tsc --noEmit",
     "test": "vitest run",
-    "generate-icons": "node scripts/generate-icons.mjs"
+    "generate-icons": "node scripts/generate-icons.mjs",
+    "postinstall": "wxt prepare"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "^2.4.0",
     "@types/chrome": "^0.1.42",
     "typescript": "^6.0.3",
-    "vite": "^8.0.0",
-    "vitest": "^4.1.6"
+    "vitest": "^4.1.6",
+    "wxt": "^0.20.26"
   }
 }

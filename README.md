@@ -39,28 +39,29 @@ npm run build
 
 1. Chrome で `chrome://extensions/` を開く
 2. デベロッパーモードを ON にする
-3. 「パッケージ化されていない拡張機能を読み込む」→ `dist/` フォルダを選択
+3. 「パッケージ化されていない拡張機能を読み込む」→ `.output/chrome-mv3/` フォルダを選択
 
 ## 開発
 
 ```bash
-npm run dev        # 開発ビルド（ウォッチモード）
+npm run dev        # 開発サーバー（HMR 付き、ブラウザ自動起動）
 npm test           # ユニットテスト
 npm run build      # プロダクションビルド
+npm run zip        # 配布用 zip を生成
 npm run typecheck  # 型チェック
 ```
 
 ## 技術スタック
 
 - TypeScript
-- [Vite](https://vitejs.dev/) + [@crxjs/vite-plugin](https://crxjs.dev/)
+- [WXT](https://wxt.dev/)（Vite ベースの拡張機能フレームワーク）
 - Manifest V3
 - Vitest
 
 ## 安全性
 
 - **外部通信なし** — ネットワークリクエストを一切行いません
-- **最小権限** — `tabs` 権限のみ（ショートカットキーのリレーに使用）
+- **権限ゼロ** — `permissions` を一切要求しません（ショートカットのリレーは権限不要の `chrome.tabs.sendMessage` で実現）
 - **スタイル隔離** — Shadow DOM によりページの CSS に干渉しません
 
 ## ライセンス
