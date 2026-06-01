@@ -201,14 +201,14 @@ export class HintManager {
   private trigger(el: Element): void {
     if (!(el instanceof HTMLElement)) return;
     el.focus();
-    // テキスト入力欄・セレクト・編集可能要素はフォーカスのみ。click() するとチェック
-    // ボックス/ラジオの値を意図せずトグルしたり、入力欄で不要なイベントを発火する。
+    // Text fields, selects, and editable elements get focus only. Calling
+    // click() on them would toggle checkboxes/radios or fire spurious events.
     if (shouldClick(el)) el.click();
   }
 }
 
-// クリックすべき要素か（リンク・ボタン・チェック系）、フォーカスのみに留めるべき要素か
-// （テキスト入力・セレクト・テキストエリア・編集可能要素）を判定する。
+// Decide whether an element should be clicked (links, buttons, checkbox-like
+// inputs) or only focused (text inputs, select, textarea, editable elements).
 const CLICKABLE_INPUT_TYPES = new Set([
   'checkbox',
   'radio',

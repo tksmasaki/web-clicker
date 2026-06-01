@@ -4,7 +4,7 @@ export default defineBackground(() => {
     const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
     if (tab?.id == null) return;
     chrome.tabs.sendMessage(tab.id, { type: 'toggle-hints' }).catch(() => {
-      // chrome:// 等、content script が動作しないページでは無視する
+      // Ignore pages where the content script does not run (e.g. chrome://).
     });
   });
 });

@@ -14,7 +14,7 @@ export default defineContentScript({
       }
     }
 
-    // Commands API 経由（Alt+F、または chrome://extensions/shortcuts でユーザーが設定したキー）
+    // Via the Commands API (Alt+F, or a key the user set at chrome://extensions/shortcuts)
     chrome.runtime.onMessage.addListener((message: unknown) => {
       if (
         message !== null &&
@@ -29,7 +29,7 @@ export default defineContentScript({
       'keydown',
       (e: KeyboardEvent) => {
         if (!manager.active) return;
-        // IME 変換中の確定前キー（例: ローマ字入力中の英字）はヒント操作に使わない。
+        // Don't use pre-commit keys during IME composition (e.g. romaji input) for hints.
         if (e.isComposing || e.keyCode === 229) return;
 
         if (e.key === 'Escape') {
