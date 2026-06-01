@@ -187,9 +187,33 @@ export class HintManager {
   }
 
   private trigger(el: Element): void {
-    if (el instanceof HTMLElement) {
-      el.focus();
-      el.click();
-    }
+    if (!(el instanceof HTMLElement)) return;
+    el.focus();
+    // テキスト入力欄・セレクト・編集可能要素はフォーカスのみ。click() するとチェック
+    // ボックス/ラジオの値を意図せずトグルしたり、入力欄で不要なイベントを発火する。
+    if (shouldClick(el)) el.click();
   }
+}
+
+// クリックすべき要素か（リンク・ボタン・チェック系）、フォーカスのみに留めるべき要素か
+// （テキスト入力・セレクト・テキストエリア・編集可能要素）を判定する。
+const CLICKABLE_INPUT_TYPES = new Set([
+  'checkbox',
+  'radio',
+  'button',
+  'submit',
+  'reset',
+  'file',
+  'image',
+  'color',
+]);
+
+function shouldClick(el: HTMLElement): boolean {
+  const tag = el.tagName.toLowerCase();
+  if (tag === 'select' || tag === 'textarea') return false;
+  if (el.isContentEditable) return false;
+  if (tag === 'input') {
+    return CLICKABLE_INPUT_TYPES.has((el as HTMLInputElement).type);
+  }
+  return true;
 }
