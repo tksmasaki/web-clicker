@@ -3,9 +3,9 @@
 Chrome extension that lets you click any interactive element on a page using
 only the keyboard.
 
-It brings the UX of [Vimium](https://chromewebstore.google.com/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb)'s
-"open a link in the current tab" to more than just links — `input` / `button` /
-`select` and other form controls are supported too.
+Press a shortcut to overlay a short label on every interactive element, then
+type the label to activate it — not just links, but `input` / `button` /
+`select` and other form controls too.
 
 ## Usage
 
