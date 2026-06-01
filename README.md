@@ -1,36 +1,46 @@
-# web-clicker
+# Web Clicker
 
-キーボードだけでページ上の任意のインタラクティブ要素をクリックできる Chrome 拡張機能。
+Chrome extension that lets you click any interactive element on a page using
+only the keyboard.
 
-[Vimium](https://chromewebstore.google.com/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb) の "open a link in the current tab" 機能に相当する UX を、リンクだけでなく `input` / `button` / `select` 等のフォーム要素にも対応させた拡張機能です。
+It brings the UX of [Vimium](https://chromewebstore.google.com/detail/vimium/dbepggeogbaibhgnhhndojpepiihcmeb)'s
+"open a link in the current tab" to more than just links — `input` / `button` /
+`select` and other form controls are supported too.
 
-## 使い方
+## Usage
 
-| 操作 | 効果 |
-|------|------|
-| `Alt+F` | ヒントモード起動・終了 |
-| `a`〜`z` | ラベルでフィルタリング（候補が1つに確定した瞬間に自動クリック） |
-| `Backspace` | 入力を1文字取り消し |
-| `Escape` | ヒントモードをキャンセル |
-| スクロール | ヒントモードを自動終了 |
+| Key | Effect |
+|-----|--------|
+| `Alt+F` | Toggle hint mode |
+| `a`–`z` | Filter by label (auto-activates the moment a single match remains) |
+| `Backspace` | Delete the last typed character |
+| `Escape` | Cancel hint mode |
+| Scroll | Automatically exit hint mode |
 
-### ショートカットキーの変更
+Activating a hint focuses text fields, selects, and editable elements; links,
+buttons, and checkbox/radio-style inputs are clicked.
 
-`chrome://extensions/shortcuts` を開き、**web-clicker** の「ヒントモードの起動・終了」を任意のキーに変更できます。
+### Changing the shortcut
 
-## ヒントの対象要素
+Open `chrome://extensions/shortcuts` and rebind **Web Clicker**'s "Toggle hint
+mode" to any key.
 
-- `a[href]` — リンク
-- `button` — ボタン
-- `input` — テキストボックス、チェックボックス等
-- `select` — セレクトボックス
-- `textarea` — テキストエリア
-- `[tabindex]` — tabindex 付き要素
-- `[contenteditable]` — 編集可能要素
+## Hinted elements
 
-## インストール（開発版）
+- `a[href]` — links
+- `button` — buttons
+- `input` — text boxes, checkboxes, etc.
+- `select` — select boxes
+- `textarea` — text areas
+- `[tabindex]` — elements with a tabindex
+- `[contenteditable]` — editable elements
 
-Node.js 20 以上が必要です。
+Occluded elements (behind modals, sticky headers, etc.) and
+`pointer-events: none` elements are skipped.
+
+## Install (unpacked)
+
+Requires Node.js 20+.
 
 ```bash
 git clone https://github.com/tksmasaki/web-clicker.git
@@ -39,33 +49,33 @@ npm install
 npm run build
 ```
 
-1. Chrome で `chrome://extensions/` を開く
-2. デベロッパーモードを ON にする
-3. 「パッケージ化されていない拡張機能を読み込む」→ `.output/chrome-mv3/` フォルダを選択
+1. Open `chrome://extensions/` in Chrome.
+2. Enable **Developer mode**.
+3. Click **Load unpacked** and select the `.output/chrome-mv3/` directory.
 
-## 開発
+## Development
 
 ```bash
-npm run dev        # 開発サーバー（HMR 付き、ブラウザ自動起動）
-npm test           # ユニットテスト
-npm run build      # プロダクションビルド
-npm run zip        # 配布用 zip を生成
-npm run typecheck  # 型チェック
+npm run dev        # dev server (HMR, auto-opens the browser)
+npm test           # unit tests
+npm run build      # production build
+npm run zip        # build a distributable zip
+npm run typecheck  # type check
 ```
 
-## 技術スタック
+## Tech stack
 
 - TypeScript
-- [WXT](https://wxt.dev/)（Vite ベースの拡張機能フレームワーク）
+- [WXT](https://wxt.dev/) (Vite-based extension framework)
 - Manifest V3
 - Vitest
 
-## 安全性
+## Safety
 
-- **外部通信なし** — ネットワークリクエストを一切行いません
-- **権限ゼロ** — `permissions` を一切要求しません（ショートカットのリレーは権限不要の `chrome.tabs.sendMessage` で実現）
-- **スタイル隔離** — Shadow DOM によりページの CSS に干渉しません
+- **No external communication** — makes no network requests.
+- **Zero permissions** — requests no `permissions` at all (the shortcut relay uses `chrome.tabs.sendMessage`, which needs none).
+- **Style isolation** — a Shadow DOM keeps it from interfering with the page's CSS.
 
-## ライセンス
+## License
 
 MIT
