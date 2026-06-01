@@ -2,15 +2,15 @@ import { defineConfig } from 'wxt';
 
 export default defineConfig({
   manifest: {
-    name: 'web-clicker',
-    description: 'Alt+F でヒントを表示し、キーボードだけでページ上の要素をクリックできます。',
+    name: 'Web Clicker',
+    description: 'Show hint labels with Alt+F and click any page element using only the keyboard.',
     commands: {
       'toggle-hints': {
         suggested_key: {
           default: 'Alt+F',
           mac: 'Alt+F',
         },
-        description: 'ヒントモードの起動・終了',
+        description: 'Toggle hint mode',
       },
     },
     icons: {
