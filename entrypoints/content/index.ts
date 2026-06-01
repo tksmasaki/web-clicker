@@ -29,6 +29,8 @@ export default defineContentScript({
       'keydown',
       (e: KeyboardEvent) => {
         if (!manager.active) return;
+        // IME 変換中の確定前キー（例: ローマ字入力中の英字）はヒント操作に使わない。
+        if (e.isComposing || e.keyCode === 229) return;
 
         if (e.key === 'Escape') {
           e.preventDefault();
