@@ -60,7 +60,19 @@ function isVisible(el: Element): boolean {
   if (rect.bottom < 0 || rect.top > window.innerHeight) return false;
   if (rect.right < 0 || rect.left > window.innerWidth) return false;
   const s = window.getComputedStyle(el);
-  return s.display !== 'none' && s.visibility !== 'hidden' && s.opacity !== '0';
+  if (s.display === 'none' || s.visibility === 'hidden' || s.opacity === '0') {
+    return false;
+  }
+  if (s.pointerEvents === 'none') return false;
+  // Occlusion check: a point inside the element's visible area must hit the
+  // element itself (or an ancestor/descendant of it). This skips elements
+  // hidden behind modals, overlays, or sticky headers. The hint host uses
+  // pointer-events:none, so it is transparent to elementFromPoint.
+  const x = Math.min(Math.max(rect.left + rect.width / 2, 0), window.innerWidth - 1);
+  const y = Math.min(Math.max(rect.top + rect.height / 2, 0), window.innerHeight - 1);
+  const top = document.elementFromPoint(x, y);
+  if (!top) return false;
+  return el === top || el.contains(top) || top.contains(el);
 }
 
 interface HintEntry {
