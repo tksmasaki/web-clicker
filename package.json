@@ -1,6 +1,6 @@
 {
   "name": "web-clicker",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Chrome extension that clicks page elements from the keyboard using hint labels.",
   "type": "module",
   "license": "MIT",
