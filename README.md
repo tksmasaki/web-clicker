@@ -40,7 +40,7 @@ Occluded elements (behind modals, sticky headers, etc.) and
 
 ## Install (unpacked)
 
-Requires Node.js 20+.
+Requires Node.js 26.12.1 or later. The development version is pinned in `.mise.toml`; run `mise install` before installing dependencies.
 
 ```bash
 git clone https://github.com/tksmasaki/web-clicker.git

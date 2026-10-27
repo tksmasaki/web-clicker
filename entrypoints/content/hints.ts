@@ -37,12 +37,12 @@ export function generateLabels(count: number): string[] {
   if (count === 0) return [];
 
   if (count <= N) {
-    return Array.from({ length: count }, (_, i) => ALPHABET[i]);
+    return Array.from({ length: count }, (_, i) => ALPHABET[i]!);
   }
 
   if (count <= N * N) {
     return Array.from({ length: count }, (_, i) =>
-      ALPHABET[Math.floor(i / N)] + ALPHABET[i % N]
+      ALPHABET[Math.floor(i / N)]! + ALPHABET[i % N]!
     );
   }
 
@@ -50,7 +50,7 @@ export function generateLabels(count: number): string[] {
     const c = i % N;
     const b = Math.floor(i / N) % N;
     const a = Math.floor(i / (N * N));
-    return ALPHABET[a] + ALPHABET[b] + ALPHABET[c];
+    return ALPHABET[a]! + ALPHABET[b]! + ALPHABET[c]!;
   });
 }
 
@@ -141,8 +141,9 @@ export class HintManager {
       return;
     }
 
-    if (matching.length === 1 && matching[0].label === this.typed) {
-      this.trigger(matching[0].element);
+    const match = matching[0];
+    if (matching.length === 1 && match?.label === this.typed) {
+      this.trigger(match.element);
       this.deactivate();
       return;
     }
@@ -161,11 +162,15 @@ export class HintManager {
     const elements = Array.from(document.querySelectorAll<Element>(FOCUSABLE_SELECTORS));
     const visible = elements.filter(isVisible);
     const labels = generateLabels(visible.length);
-    return visible.map((element, i) => ({
-      element,
-      label: labels[i],
-      badge: this.createBadge(element, labels[i]),
-    }));
+    return visible.map((element, i) => {
+      // generateLabels returns one label for every visible element.
+      const label = labels[i]!;
+      return {
+        element,
+        label,
+        badge: this.createBadge(element, label),
+      };
+    });
   }
 
   private createBadge(el: Element, label: string): HTMLElement {
